@@ -68,7 +68,7 @@ public class Sidenavigatiobbar extends AppCompatActivity implements NavigationVi
 
         } else if (id==R.id.nav_logout) {
             builder.setTitle("Alert")
-                    .setMessage("Do you want to SignIn")
+                    .setMessage("Do you want to SignOut")
                     .setCancelable(true)
                     .setPositiveButton("yes", new DialogInterface.OnClickListener() {
                         @Override
@@ -94,7 +94,7 @@ public class Sidenavigatiobbar extends AppCompatActivity implements NavigationVi
     @Override
     public void onBackPressed() {
         builder.setTitle("Alert")
-                .setMessage("Do you want to SignIn")
+                .setMessage("Do you want to SignOut")
                 .setCancelable(true)
                 .setPositiveButton("yes", new DialogInterface.OnClickListener() {
                     @Override

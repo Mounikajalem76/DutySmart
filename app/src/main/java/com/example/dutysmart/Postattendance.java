@@ -91,14 +91,22 @@ public class Postattendance extends Fragment {
                     String selectedDate = editText_date.getText().toString();
                     if (snapshot.hasChild(selectedDate)) {
                         DataSnapshot dateSnapshot = snapshot.child(selectedDate);
+                        boolean allPresent=true;
                         for (DataSnapshot nameSnapshot : dateSnapshot.getChildren()) {
                             String nameAssign = nameSnapshot.getKey();
-                            CheckBox checkBox = new CheckBox(requireContext());
-                            checkBox.setText(nameAssign);
-                            checkBoxes.add(checkBox);
-                            checkboxContainer.addView(checkBox);
+                            if (!Objects.equals(nameSnapshot.getValue(String.class), "Present")) {
+                                allPresent=false;
+                                CheckBox checkBox = new CheckBox(requireContext());
+                                checkBox.setText(nameAssign);
+                                checkBoxes.add(checkBox);
+                                checkboxContainer.addView(checkBox);
+                            }
                         }
-                        checkboxContainer.setVisibility(View.VISIBLE);
+                        if (allPresent){
+                            Toast.makeText(getContext(), "Attendance for all members is complete for selected date", Toast.LENGTH_SHORT).show();
+                        }else {
+                            checkboxContainer.setVisibility(View.VISIBLE);
+                        }
                     }
                 }
             }
@@ -120,7 +128,7 @@ public class Postattendance extends Fragment {
         }
 
         if (checkBoxes.isEmpty()) {
-            Toast.makeText(getContext(), "No duties assigned for the selected date", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "No Data found for selected date", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -157,9 +165,42 @@ public class Postattendance extends Fragment {
                         }
 
                         Toast.makeText(getContext(), "Attendance Posted Successfully", Toast.LENGTH_SHORT).show();
+
+                        
+
+                        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                boolean allPresent = true;
+                                for (DataSnapshot nameSnapshot : snapshot.getChildren()) {
+                                    if (!Objects.equals(nameSnapshot.getValue(String.class), "Present")) {
+                                        allPresent = false;
+                                        break;
+                                    }
+                                    
+
+                                if (allPresent) {
+                                    Toast.makeText(getContext(), "Attendance for all members is complete for the selected date", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+
+                        }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                if (isAdded()) {
+                                    Toast.makeText(getContext(), "Data Loading Failed: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+                        });
                     }
                 }
             }
+
+
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
