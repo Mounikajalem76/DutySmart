@@ -163,4 +163,11 @@ public class Signin extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent=new Intent(Signin.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }

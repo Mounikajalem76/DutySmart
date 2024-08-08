@@ -31,7 +31,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="300dp"
         android:fontFamily="serif"
-        android:text="DutySmart"
+        android:text="DutySync"
         android:textColor="#ffbb00"
         android:textSize="50dp"
         android:textStyle="bold"/>

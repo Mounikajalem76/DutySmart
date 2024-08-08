@@ -154,7 +154,6 @@
                 android:gravity="center"
                 android:padding="3dp"
                 android:text="Present/Absent"
-
                 android:textStyle="bold" />
 
             <TextView
@@ -164,6 +163,7 @@
                 android:layout_gravity="center"
                 android:padding="5dp"
                 android:text="" />
+
         </LinearLayout>
 
 

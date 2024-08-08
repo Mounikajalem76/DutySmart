@@ -1,6 +1,7 @@
 package com.example.dutysmart;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 
@@ -103,7 +104,7 @@ public class Postattendance extends Fragment {
                             }
                         }
                         if (allPresent){
-                            Toast.makeText(getContext(), "Attendance for all members is complete for selected date", Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(getContext(), "Attendance for all members is complete for selected date", Toast.LENGTH_SHORT).show();
                         }else {
                             checkboxContainer.setVisibility(View.VISIBLE);
                         }
@@ -180,7 +181,7 @@ public class Postattendance extends Fragment {
                                     
 
                                 if (allPresent) {
-                                    Toast.makeText(getContext(), "Attendance for all members is complete for the selected date", Toast.LENGTH_SHORT).show();
+                                   // Toast.makeText(getContext(), "Attendance for all members is complete for the selected date", Toast.LENGTH_SHORT).show();
                                 }
                             }
 
@@ -217,6 +218,10 @@ public class Postattendance extends Fragment {
         }
         editText_date.getText().clear();
         checkboxContainer.setVisibility(View.GONE);
+    }
+    public void handlebackpressed(){
+        Intent intent=new Intent(getContext(),Sidenavigatiobbar.class);
+        startActivity(intent);
     }
 }
 

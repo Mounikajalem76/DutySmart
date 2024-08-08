@@ -15,6 +15,7 @@ import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -93,23 +94,32 @@ public class Sidenavigatiobbar extends AppCompatActivity implements NavigationVi
 
     @Override
     public void onBackPressed() {
-        builder.setTitle("Alert")
-                .setMessage("Do you want to SignOut")
-                .setCancelable(true)
-                .setPositiveButton("yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Intent intent=new Intent(Sidenavigatiobbar.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.cancel();
-                    }
-                })
-                .show();
+        Fragment currentFragment=getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if (currentFragment instanceof Showattendance){
+            ((Showattendance) currentFragment).handlebackpressed();
+
+        } else if (currentFragment instanceof Postattendance) {
+            ((Postattendance)currentFragment).handlebackpressed();
+
+        }else {
+            builder.setTitle("Alert")
+                    .setMessage("Do you want to SignOut")
+                    .setCancelable(true)
+                    .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Intent intent = new Intent(Sidenavigatiobbar.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
+                        }
+                    })
+                    .show();
+        }
     }
 }

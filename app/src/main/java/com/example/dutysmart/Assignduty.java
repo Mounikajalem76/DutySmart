@@ -141,7 +141,7 @@ public class Assignduty extends Fragment {
                                 Toast.makeText(getContext(), "Already AssignDuty for this person on this date", Toast.LENGTH_SHORT).show();
 
                             }else{
-                                reference.child(name).setValue("absent");
+                                reference.child(name).setValue("Absent");
                                 autoCompleteTextView.getText().clear();
                                 editText_date.getText().clear();
                                 Toast.makeText(getContext(), "Duty Assign Successfully", Toast.LENGTH_SHORT).show();
